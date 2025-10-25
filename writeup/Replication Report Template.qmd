@@ -1,6 +1,6 @@
 ---
-title: "Replication of Study X by Sample & Sample (20xx, Psychological Science)"
-author: "Replication Author[s] (contact information)"
+title: "Replication of Study 1 by Canning et al. (2022, Social Psychological and Personality Science)"
+author: "Kevin Kennedy kevinrk@stanford.edu"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -12,7 +12,15 @@ format:
 
 ## Introduction
 
-[No abstract is needed.]  Each replication project will have a straightforward, no frills report of the study and results.  These reports will be publicly available as supplementary material for the aggregate report(s) of the project as a whole.  Also, to maximize project integrity, the intro and methods will be written and critiqued in advance of data collection.  Introductions can be just 1-2 paragraphs clarifying the main idea of the original study, the target finding for replication, and any other essential information.  It will NOT have a literature review -- that is in the original publication. You can write both the introduction and the methods in past tense.  
+For my replication project, I have decided to replicate Study 1 of Canning et al. (2022). Canning et al. (2022, Study 1) examined the effect of perceived faculty mindset – whether they are believed to endorse the view that intelligence is fixed or malleable – on student’s anticipated belonging and performance in a hypothetical college calculus class. Canning et al. (2022)  were specifically interested in the role of faculty mindset in producing gender disparities in belonging and performance in STEM. Canning et al. (2022) manipulated the perceived mindset by having participants read a course syllabus. After reading the syllabus, participants completed a manipulation check on perceived professor mindset (adapted from Dweck, 1999). They then completed the main outcome measures on perceived stereotype endorsement, anticipated belonging (Murphy & Zirkel, 2015), and then math test performance. The math test performance was 30 GRE problems used in prior research (from Schmader, 2002). 
+
+For my replication project, I am specifically interested in replicating the anticipated belonging finding (i.e., Condition x Gender interaction). This finding is the closest to my own research interests on how institutional norms, practices, and policies influence students’ sense of belonging. Given time and resource constraints, I have decided not to replicate the performance finding. I will also adopt the study in several ways to be used on Prolific. The original study was conducted using a university subject pool (N = 217). With permission from the teaching team, I have decided to make the following adaptations. One, I will remove the single mention of mention of  “Indiana University honor code” on the stimulus materials, changing it to “the university honor code.” I can also recruit current or recent college students using the filters provided on Prolific, which I have successfully done before as part of my FYP. For the cover story, I could also say that the syllabus is for an online course rather than a Stanford course, if there are concerns that the Stanford name comes off as elitist and thus biases the results. I will also try to recruit a relatively even balance of men and women to examine the gender effects.
+
+[Link to Github repository](https://github.com/kevinrk97/canning2022)
+Link (backup in case broken): https://github.com/kevinrk97/canning2022
+
+[Link to original paper (in repository)](https://github.com/kevinrk97/canning2022/tree/main/original_paper)
+Link (backup in case broken): https://github.com/kevinrk97/canning2022/tree/main/original_paper
 
 
 ## Methods
@@ -20,6 +28,13 @@ format:
 ### Power Analysis
 
 Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
+
+The original effect size for the finding I am interested in replicating was the result of
+the Gender x Condition interaction on anticipated belonging. For this study, the 
+effect size was partial eta squared = .049. 
+
+
+
 
 ### Planned Sample
 
@@ -65,17 +80,108 @@ Data preparation following the analysis plan.
 ### Data Preparation
 
 #### Load Relevant Libraries and Functions
+library("janitor") # for data manipulation
+library("tinytex") # to create PDF
+library("broom.mixed") # to predict data
+library("emmeans") # for comparisons
+library("psych") # for Cronbach's alpha
+library("kableExtra") # for tables 
+library("corrr") # for correlations
+library("effectsize") # for effect sizes
+library("patchwork") # for making figure panels
+library("knitr") # for knitting things
+library("tidyverse") # for all things tidyverse
 
 #### Import data
+df.data.raw = read_csv("") %>% 
+  janitor::clean_names()
 
 #### Data exclusion / filtering
+##### Clean data
+df.data = df.data.raw %>% 
+  
+  # Filter for only male (1) or female (2) identifying participants
+  filter(gender == 1|gender == 2) 
 
 #### Prepare data for analysis - create columns etc.
+## Create incerse variables as needed
+df.data$percep_fac_mindset_3r = 7 - df.data$percep_fac_mindset_3
+df.data$belong_1r = 7 - df.data$belong_1
+df.data$belong_2r = 7 - df.data$belong_2
+df.data$belong_3r = 7 - df.data$belong_3
+
+## Clean up the data
+df.data = df.data %>% 
+  
+  # Create composite variables
+  mutate(faculty_mindset_m = rowMeans(df.data[, c("percep_fac_mindset_1", 
+    "percep_fac_mindset_2", "percep_fac_mindset_3r", "percep_fac_mindset_4", 
+    "percep_fac_mindset_5")]),
+    stereo_endorse_m = rowMeans(df.data[, c("percep_stereo_1", 
+    "percep_stereo_2")]),
+    belong_m = rowMeans(df.data[, c("belong_1r", "belong_2r", "belong_3r",
+                                    "belong_4")]),
+    personal_mindset_m = rowMeans(df.data[, c("personal_mindset_1", 
+    "personal_mindset_2")]),
+    
+    # Create clean gender label
+    gender_label = factor(gender,
+                          levels = c(1, 2),
+                          labels = c("Male", "Female")),
+    
+    # Create condition predictor where fixed = 0 and growth= 1
+    condition_c = if_else(condition == "Fixed", 0, 1),
+    
+    # Create gender predictor where male = 0 and female = 1 (as done in original)
+    gender_c = gender - 1
+  )
 ```
 
 ### Confirmatory analysis
 
 The analyses as specified in the analysis plan.  
+
+Analysis #1: Manipulation Check
+```{r}
+# Descriptive Statistics
+df.data %>% 
+  group_by(condition) %>% 
+  summarise(mean = mean(faculty_mindset_m, na.rm = T),
+            sd = sd(faculty_mindset_m, na.rm = T))
+
+# Inferential statistics 
+lm(faculty_mindset_m ~ condition_c + personal_mindset_m,
+           data = df.data) %>% 
+  summary()
+```
+
+Analysis #2: Perceived Stereotype Endorsement
+```{r}
+# Descriptive Statistics
+df.data %>% 
+  group_by(condition) %>% 
+  summarise(mean = mean(stereo_endorse_m, na.rm = T),
+            sd = sd(stereo_endorse_m, na.rm = T))
+
+# Inferential statistics 
+lm(stereo_endorse_m ~ condition_c * gender_c + personal_mindset_m,
+           data = df.data) %>% 
+  summary()
+```
+
+Analysis #3: Anticipated Belonging
+```{r}
+# Descriptive Statistics
+df.data %>% 
+  group_by(condition) %>% 
+  summarise(mean = mean(belong_m, na.rm = T),
+            sd = sd(belong_m, na.rm = T))
+
+# Inferential statistics 
+lm(belong_m ~ condition_c * gender_c + personal_mindset_m,
+           data = df.data) %>% 
+  summary()
+```
 
 *Side-by-side graph with original graph is ideal here*
 
