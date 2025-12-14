@@ -12,9 +12,9 @@ format:
 
 ## Introduction
 
-For my replication project, I have decided to replicate Study 1 of Canning et al. (2022). Canning et al. (2022, Study 1) examined the effect of perceived faculty mindset – whether they are believed to endorse the view that intelligence is fixed or malleable – on student’s anticipated belonging and performance in a hypothetical college calculus class. Canning et al. (2022)  were specifically interested in the role of faculty mindset in producing gender disparities in belonging and performance in STEM. Canning et al. (2022) manipulated the perceived mindset by having participants read a course syllabus. After reading the syllabus, participants completed a manipulation check on perceived professor mindset (adapted from Dweck, 1999). They then completed the main outcome measures on perceived stereotype endorsement, anticipated belonging (Murphy & Zirkel, 2015), and then math test performance. The math test performance was 30 GRE problems used in prior research (from Schmader, 2002). 
+For my replication project, I have decided to replicate Study 1 of Canning et al. (2022). Canning et al. (2022, Study 1) examined the effect of perceived faculty mindset – whether they are perceived to endorse the view that intelligence is fixed or malleable – on student’s anticipated belonging and performance in a hypothetical college calculus class. Canning et al. (2022)  were specifically interested in the role of faculty mindset in producing gender disparities in belonging and performance in STEM. Canning et al. (2022) manipulated the perceived mindset by having participants read a course syllabus. After reading the syllabus, participants completed a manipulation check on perceived professor mindset (adapted from Dweck, 1999). They then completed the main outcome measures on perceived stereotype endorsement, anticipated belonging (Murphy & Zirkel, 2015), and then math test performance. The math test performance was 30 GRE problems used in prior research (from Schmader, 2002). 
 
-For my replication project, I am specifically interested in replicating the anticipated belonging finding (i.e., Condition x Gender interaction). This finding is the closest to my own research interests on how institutional norms, practices, and policies influence students’ sense of belonging. Given time and resource constraints, I have decided not to replicate the performance finding. I will also adopt the study in several ways to be used on Prolific. The original study was conducted using a university subject pool (N = 217). With permission from the teaching team, I have decided to make the following adaptations. One, I will remove the single mention of mention of  “Indiana University honor code” on the stimulus materials, changing it to “the university honor code.” I can also recruit current or recent college students using the filters provided on Prolific, which I have successfully done before as part of my FYP. For the cover story, I could also say that the syllabus is for an online course rather than a Stanford course, if there are concerns that the Stanford name comes off as elitist and thus biases the results. I will also try to recruit a relatively even balance of men and women to examine the gender effects.
+For my replication project, I am specifically interested in replicating the anticipated belonging finding (i.e., Condition x Gender interaction). This finding is the closest to my own research interests on how institutional norms, practices, and policies influence students’ sense of belonging. Given time and resource constraints, I have decided not to replicate the performance finding. I will also adopt the study in several ways to be run on Prolific. The original study was conducted using a university subject pool (N = 217). With permission from the teaching team, I have decided to make the following adaptations. One, I will remove the single mention of mention of  “Indiana University honor code” on the stimulus materials, changing it to “the university honor code.” I can also recruit current or recent college students using the filters provided on Prolific, which I have successfully done before as part of my FYP. I will also try to recruit a relatively even balance of men and women to examine the gender effects.
 
 [Link to Github repository](https://github.com/kevinrk97/canning2022)
 Link (backup in case broken): https://github.com/kevinrk97/canning2022
@@ -22,52 +22,194 @@ Link (backup in case broken): https://github.com/kevinrk97/canning2022
 [Link to original paper (in repository)](https://github.com/kevinrk97/canning2022/tree/main/original_paper)
 Link (backup in case broken): https://github.com/kevinrk97/canning2022/tree/main/original_paper
 
+[Link to paradigm (on qualtrics)](https://stanforduniversity.qualtrics.com/jfe/form/SV_0cS7zNfDc3mZQd8)
+Link (backup in case broken): https://stanforduniversity.qualtrics.com/jfe/form/SV_0cS7zNfDc3mZQd8
+
+[Link to pre-registration (on OSF)](https://osf.io/7tc3z/overview?view_only=0c24b54cb4884479ba4ab00d11602eee)
+Link (backup in case broken): https://osf.io/7tc3z/overview?view_only=0c24b54cb4884479ba4ab00d11602eee
+
 
 ## Methods
 
 ### Power Analysis
 
-Original effect size, power analysis for samples to achieve 80%, 90%, 95% power to detect that effect size.  Considerations of feasibility for selecting planned sample size.
-
 The original effect size for the finding I am interested in replicating was the result of
-the Gender x Condition interaction on anticipated belonging. For this study, the 
-effect size was partial eta squared = .049. 
+the Gender x Condition interaction on anticipated belonging (partial eta squared = .049).  
 
+For 80% power - I would need N = 158 (153 denominator df + 5 parameters estimated)
+```{r}
+# Load appropriate packages
+library(pwr)
 
+# Power test
+pwr.f2.test(u = 1, # numerator df
+            f2 = (.049/(1-.049)), # effect size converted from partial eta squared
+            sig.level = 0.05, # significance level
+            power = 0.8) # Power
+```
+For 90% power - would need N = 209 (204 denominator df + 5 parameters estimated)
+```{r}
+# Load appropriate packages
+library(pwr)
 
+# Power test
+pwr.f2.test(u = 1, # numerator df
+            f2 = (.049/(1-.049)), # effect size converted from partial eta squared
+            sig.level = 0.05, # significance level
+            power = 0.90) # Power
+```
+For 95% power - would need N = 258 (253 denominator df + 5 parameters estimated)
+```{r}
+# Load appropriate packages
+library(pwr)
+
+# Power test
+pwr.f2.test(u = 1, # numerator df
+            f2 = (.049/(1-.049)), # effect size converted from Cohen's D
+            sig.level = 0.05, # significance level
+            power = 0.95) # Power
+```
 
 ### Planned Sample
 
-Planned sample size and/or termination rule, sampling frame, known demographics if any, preselection rules if any.
+Based on the power analysis with 80% power, plus allowing for some data exclusions, I will
+plan to recruit 180 participants. To be eligible for this study, participants must be at 
+least 18 years of age, and either a current or former college student. I will utilize the 
+"education" filters on Prolific to ensure that all participants are enrolled in college or
+have recently received a college degree. I will set the upper age limit at 25 years old to 
+ensure that participants are recent college graduates. This practice is consistent with 
+past research that I have done. 
 
 ### Materials
 
-All materials - can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+As with the original study (Canning et al., 2022, Study 1) participants were exposed
+to a course syllabus that was designed to imply that the professor had either a fixed or
+a growth mindset of intelligence. Note that, per Canning et al. (2022), these materials were created
+through focus groups with college students. Minor changes were made to these materials to 
+adapt them for an online study. For example, I removed the one reference to "Indiana University". 
+
+The complete outcome measures are below, taken from the Supplemental Materials:
+
+
+Manipulation Check: 
+
+Perceived faculty fixed mindset.
+(1 = strongly disagree, 6 = strongly agree)
+
+The professor in this class seems to believe that students have a certain amount of intelligence,
+and they really can’t do much to change it. 
+
+The professor in this class seems to believe that students either “have it” or they don’t. 
+
+The professor in this class seems to believe that every student can learn new things and 
+significantly grow their intelligence. 
+
+The professor in this class seems to believe that some students are smart, while others are not. 
+
+The professor in this class seems to believe that students who are less smart will always be less 
+smart than the other students in the class.
+
+
+Perceived stereotype endorsement
+(1 = strongly disagree, 6 = strongly agree)
+
+I think the professor in this class would endorse gender stereotypes. 
+
+I think the professor in this class would treat male and female students differently in class.
+
+
+Anticipated belonging [**Key Dependent Measure**]
+(1 = Extremely, 6 = Not at all; all items were recoded so that higher values indicated greater 
+anticipated belonging)
+
+If you were a student in this class, how comfortable would you feel during this class? 
+
+If you were a student in this class, how much would you feel that you could be yourself during this 
+class? 
+
+If you were a student in this class, how much would you feel that you “fit in” during this class? 
+
+If you were a student in this class, how alienated would you feel during this class?
+
+
+Personal mindset
+(1 = strongly disagree, 6 = strongly agree)
+
+You have a certain amount of intelligence, and you can’t really do much to change it.
+
+Your basic intelligence is something about you that you can't change very much.
 
 ### Procedure	
 
-Can quote directly from original article - just put the text in quotations and note that this was followed precisely.  Or, quote directly and just point out exceptions to what was described in the original article.
+As with Canning et al. (2022, Study 1) participants were recruited to take part in a study
+on impressions of courses. However, as the replication study was conducted through Prolific,
+and not a university subject pool, I made some slight modifications. First, participants were
+told that we are a group of Stanford psychology researchers working with the math department
+of a local community college to evaluate a new calculus course. After viewing the syllabus, 
+participants provided their perceptions/impressions of the course by completing a manipulation 
+check on perceived professor mindset (adapted from Dweck, 1999), perceived stereotype endorsement, 
+anticipated belonging (Murphy and Zirkel, 2015), and, as a covariate, participant's own mindset 
+(i.e., personal fixed vs. growth mindset). Canning et al. (2022) also had participants complete a 
+math test (i.e., 30 GRE problems; Schmader, 2002). However, this replication project did not include
+the math test due to time and resource constraints. 
 
 ### Analysis Plan
 
-Can also quote directly, though it is less often spelled out effectively for an analysis strategy section.  The key is to report an analysis strategy that is as close to the original - data cleaning rules, data exclusion rules, covariates, etc. - as possible.  
+Canning et al. (2022) analyzed the key dependent variables by regressing the outcome on
+gender (0 = male, 1 = female), condition (0 = fixed mindset syllabus, 1 = growth mindset
+syllabus), the gender X condition interaction, and the personal fixed mindset covariate. 
+They note that all participants were retained in the final analysis. If a participant has
+missing data the researchers did not impute it and just excluded that participant from 
+that outcome variable's analysis. 
 
-**Clarify key analysis of interest here**  You can also pre-specify additional analyses you plan to do.
+**Clarify key analysis of interest here**  As with Canning et al. (2022), I will regress
+the key outcome variable (i.e., anticipated belonging) on Gender (0 = male, 1 = female), 
+condition (0 = fixed mindset syllabus, 1 = growth mindset syllabus), the Condition x Gender
+interaction, and the personal fixed mindset covariate. The key analysis of interest is the 
+Condition x Gender interaction term for the anticipated belonging outcome measure. 
 
 ### Differences from Original Study
 
-Explicitly describe known differences in sample, setting, procedure, and analysis plan from original study.  The goal, of course, is to minimize those differences, but differences will inevitably occur.  Also, note whether such differences are anticipated to make a difference based on claims in the original article or subsequent published research on the conditions for obtaining the effect.
+The major known difference between Canning et al. (2022, Study 1) and my replication study
+are that the original study was run using a university subject pool by having participants
+complete materials in-person. Thus, the participants were all college students. Likewise,
+I will also recruit current (or recent) college students, but I will collect data online
+through Prolific, rather than in person. This difference could influence the results of 
+the replication. For example, it could be that participants are less likely to pay attention
+online than in person. I have sought to mitigate this issue by using an attention check 
+(i.e., "in your opinion should we use your data"), bolding key aspects of the stimuli, and
+by adding timers to prevent participants from reading through the online stimulus material 
+too quickly. However, in any study, whether in person or online, there is always a concern 
+that participants will not engage seriously with the material. 
 
 ### Methods Addendum (Post Data Collection)
 
-You can comment this section out prior to final report with data collection.
+No changes were made to the methods before collecting data. 
 
 #### Actual Sample
-  Sample size, demographics, data exclusions based on rules spelled out in analysis plan
+We recruited 193 workers on Prolific Academic who were in the U.S. and had at least a high 
+school diploma and were between the ages of 18 and 25. Participants were compensated at
+rate of $8.00/hour through Prolific. 22 participants were removed for one of the following 
+reasons, as specified in the pre-registration: not specifying their gender (N = 5) or 
+having a gender besides male or female (N = 9), answering no to the question on data
+reliability (N = 5), and taking less than one second per question (N = 3). The final 
+sample size was 171. Exclusions were distributed relatively evenly across conditions.
+
+The final sample of 171 had a mean age of 22.27 (SD = 2), and had 74 participants who 
+identified as male (43%) and 97 participants who identified as female (57%). The racial/ethnic 
+breakdown of the sample is as follows: White (N = 77, 45%), Hispanic/Latinx (N = 19, 11%), 
+Black/African American (N = 17, 10%), Asian/Asian American  (N = 30, 18%), Arab/Middle Eastern
+(N = 1, <1%), and biracial or multiracial (N = 27, 16%). 87 participants were in the 
+fixed professor condition, while 84 participants were in the growth professor condition.
+92 participants met the criteria for first-generation (i.e., neither parent has a four-year 
+college degree), with 87 were continuing generation. Of the 171 participants, 121 (71%)
+participants are currently enrolled at a college or university, and 49 were recent 
+graduates (29%; 1 participant did not answer). 
+
 
 #### Differences from pre-data collection methods plan
-  Any differences from what was described as the original plan, or “none”.
-
+We ended up recruiting a slightly larger number of participants than anticipated due
+to an increase in funds, as participants took less time than expected.  
 
 ## Results
 
@@ -76,24 +218,23 @@ You can comment this section out prior to final report with data collection.
 
 Data preparation following the analysis plan.
 	
-```{r include=F}
+```{r include=T}
 ### Data Preparation
 
-#### Load Relevant Libraries and Functions
+#### Load libraries and functions 
 library("janitor") # for data manipulation
-library("tinytex") # to create PDF
-library("broom.mixed") # to predict data
 library("emmeans") # for comparisons
 library("psych") # for Cronbach's alpha
 library("kableExtra") # for tables 
 library("corrr") # for correlations
 library("effectsize") # for effect sizes
-library("patchwork") # for making figure panels
 library("knitr") # for knitting things
 library("tidyverse") # for all things tidyverse
+library("broom") # for tidy 
+library("patchwork") # to combine files
 
-#### Import data
-df.data.raw = read_csv("") %>% 
+#### Import raw data
+df.data.raw = read_csv("~/canning2022/data/Final_Data_Deidentified.csv") %>% 
   janitor::clean_names()
 
 #### Data exclusion / filtering
@@ -101,10 +242,17 @@ df.data.raw = read_csv("") %>%
 df.data = df.data.raw %>% 
   
   # Filter for only male (1) or female (2) identifying participants
-  filter(gender == 1|gender == 2) 
+  filter(gender == 1|gender == 2)  %>% 
+  
+  # Filter where answer to data quality question is "yes"
+  filter(data_quality == 1)  %>% 
+  
+  # Filter where time spent per question is less than 1 second per question 
+  # (plus 120 seconds to allow for reading stimuli)
+  filter(duration_in_seconds > 169)
 
-#### Prepare data for analysis - create columns etc.
-## Create incerse variables as needed
+#### Prepare data for analysis 
+##### Create inverse variables as needed
 df.data$percep_fac_mindset_3r = 7 - df.data$percep_fac_mindset_3
 df.data$belong_1r = 7 - df.data$belong_1
 df.data$belong_2r = 7 - df.data$belong_2
@@ -113,21 +261,30 @@ df.data$belong_3r = 7 - df.data$belong_3
 ## Clean up the data
 df.data = df.data %>% 
   
-  # Create composite variables
-  mutate(faculty_mindset_m = rowMeans(df.data[, c("percep_fac_mindset_1", 
+  # Create composite variables 
+  mutate(
+    
+    # Faculty mindset composite
+    faculty_mindset_m = rowMeans(df.data[, c("percep_fac_mindset_1", 
     "percep_fac_mindset_2", "percep_fac_mindset_3r", "percep_fac_mindset_4", 
     "percep_fac_mindset_5")]),
+    
+    # Stereotype endorsement composite
     stereo_endorse_m = rowMeans(df.data[, c("percep_stereo_1", 
     "percep_stereo_2")]),
+    
+    # Belonging composite
     belong_m = rowMeans(df.data[, c("belong_1r", "belong_2r", "belong_3r",
                                     "belong_4")]),
+    
+    # Personal mindset composite
     personal_mindset_m = rowMeans(df.data[, c("personal_mindset_1", 
     "personal_mindset_2")]),
     
-    # Create clean gender label
+    # Create clean gender label (to be consisent with original publication)
     gender_label = factor(gender,
                           levels = c(1, 2),
-                          labels = c("Male", "Female")),
+                          labels = c("Men", "Women")),
     
     # Create condition predictor where fixed = 0 and growth= 1
     condition_c = if_else(condition == "Fixed", 0, 1),
@@ -137,57 +294,269 @@ df.data = df.data %>%
   )
 ```
 
+Demographic calculations
+```{r}
+# Calculate demographic information
+
+## Gender
+table(df.data$gender_label) # Male = 74, Female = 97
+
+## Condition
+table(df.data$condition) # Fixed = 87, Growth = 84
+
+## Age
+describe(df.data$age) # Mean = 22.27, SD = 2
+
+## Race/ethnicity
+table(df.data$race_ethn) # White = 77, Hispanic/Latinx = 19, Black = 17, Asian = 30,
+# Arab/Middle Eastern = 1, bi or multiracial = 27
+
+## Parental education
+df.data = df.data %>% 
+  mutate(first_gen = if_else(parental_education < 5, "First-Gen", "Continuing Gen"))
+table(df.data$first_gen) # Continuing Gen = 79, First-Gen = 92
+
+## Exclusions by condition (distributed across condition)
+table(df.data.raw$condition) # Fixed = 99, Growth = 94 (12 from fixed, 10 from growth)
+table(df.data$condition) # Fixed = 87, Growth = 84
+
+# Current student status
+table(df.data$current_student) # Yes = 121, No = 49, Other = 1
+```
+
+
 ### Confirmatory analysis
 
 The analyses as specified in the analysis plan.  
 
-Analysis #1: Manipulation Check
+Confirmatory Analysis: Anticipated Belonging (controlling for personal mindset)
+** This is the key analysis **
 ```{r}
-# Descriptive Statistics
+# Descriptive Statistics (by cell)
 df.data %>% 
-  group_by(condition) %>% 
-  summarise(mean = mean(faculty_mindset_m, na.rm = T),
-            sd = sd(faculty_mindset_m, na.rm = T))
-
-# Inferential statistics 
-lm(faculty_mindset_m ~ condition_c + personal_mindset_m,
-           data = df.data) %>% 
-  summary()
-```
-
-Analysis #2: Perceived Stereotype Endorsement
-```{r}
-# Descriptive Statistics
-df.data %>% 
-  group_by(condition) %>% 
-  summarise(mean = mean(stereo_endorse_m, na.rm = T),
-            sd = sd(stereo_endorse_m, na.rm = T))
-
-# Inferential statistics 
-lm(stereo_endorse_m ~ condition_c * gender_c + personal_mindset_m,
-           data = df.data) %>% 
-  summary()
-```
-
-Analysis #3: Anticipated Belonging
-```{r}
-# Descriptive Statistics
-df.data %>% 
-  group_by(condition) %>% 
+  
+  # group by condition and gender
+  group_by(condition, gender_label) %>% 
+  
+  # summarize mean and sd
   summarise(mean = mean(belong_m, na.rm = T),
             sd = sd(belong_m, na.rm = T))
 
-# Inferential statistics 
-lm(belong_m ~ condition_c * gender_c + personal_mindset_m,
+# Inferential statistics  (regress belonging on condition)
+belonging_model = lm(belong_m ~ 1 + condition_c + gender_c + condition_c*gender_c +
+                       personal_mindset_m, 
+           data = df.data)
+
+# Print summary of model
+belonging_model %>% 
+  summary()
+
+# Calculate confidence intervals
+belonging_model  %>% 
+  
+  # Add confidence intervals
+  tidy(conf.int = T)
+
+# Calculate partial eta squared
+belonging_model %>% 
+  eta_squared()
+```
+
+To replicate the main finding of anticipated belonging, we regressed the composite
+score for belonging on condition (0 = fixed, 1 = condition), gender (0 = male, 1 = female),
+and the condition x gender interaction, while controlling for participant's personal
+mindset. The results revealed that contrary to the original study, the effect of mindset 
+condition on anticipated belonging was not moderated by gender, b = 0.561, 
+95% CI [-0.209, 1.332], F(1, 166) = 2.068, p = .152, partial eta squared = .01. As such, 
+the key results did not replicate as predicted and preregistered. 
+
+Compute simple gender effect in fixed mindset condition
+```{r}
+## Disparity in anticipated belonging between men and women in the fixed mindset condition
+# Recode gender variable to be centered predictor
+df.data$gender_cent = df.data$gender - 0.5
+
+# Re-run model with centered gender predictor and fixed condition = 0
+lm(belong_m ~ 1 + condition_c + gender_cent + condition_c*gender_cent +
+                       personal_mindset_m, 
+           data = df.data) %>% 
+  summary()
+
+```
+Compute simple gender effect in growth mindset condition
+```{r}
+## Disparity in anticipated belonging between men and women in the fixed mindset condition
+# Create predictor where growth = 0 and 1 = fixed
+df.data = df.data %>% 
+  mutate(condition_simple = if_else(condition == "Growth", 0, 1))
+
+# Re-run model with centered gender predictor and fixed condition = 0
+lm(belong_m ~ 1 + condition_simple + gender_cent + condition_simple*gender_cent + 
+                       personal_mindset_m, 
            data = df.data) %>% 
   summary()
 ```
 
 *Side-by-side graph with original graph is ideal here*
 
+```{r}
+# Load picture of original graph
+original.plot = knitr::include_graphics("figures/original.png")
+
+# Create replication plot
+replication.plot = ggplot(data = df.data,
+              
+              # Add condition on x-axis, belonging on y-axis, and group/fill by gender
+              mapping = aes(x = factor(x = condition, levels = c("Fixed", "Growth"), 
+                                       labels = c("Fixed Mindset Professor", "Growth Mindset Professor")),
+                            group = gender_label,
+                            fill = gender_label,
+                            y = belong_m)) +
+  
+  # Add bars 
+  stat_summary(fun = "mean",
+               geom = "bar",
+               position = position_dodge(width = 0.91), 
+               color = "black") +
+  
+  # add 95% CI
+  stat_summary(fun.data = "mean_cl_boot",
+               geom = "errorbar",
+               width = 0.2,
+               position = position_dodge(width = 0.91)) +
+  
+  # Add x-axis and y-axis title
+  labs(x = element_blank(),
+       y = "Belonging") +
+  
+  # Change colors to match original
+  scale_fill_manual(values = c("gray1", "gray78")) +
+  
+  # Change theme elements
+  theme(legend.position = "top", # change legend position
+        legend.title = element_blank(), # remove legend title
+        legend.text = element_text(size = 15), # change legend text size
+        axis.title.y = element_text(size = 16), # change y-axis title text size
+        axis.text.x = element_text(size = 16), # change x-axis text size
+        axis.text.y = element_text(size = 16), # change y-axis text size
+        panel.background = element_blank(), # remove background
+        plot.background  = element_blank(),  
+        panel.grid = element_blank(),  
+        axis.line = element_line(color = "black")) + # change axis color lines
+  
+  # Change y-axis to match original graph
+  scale_y_continuous(limits = c(0.0, 6.0),
+    expand = c(0, 0),
+    breaks = seq(1, 6, by = 1))
+
+# Print both plots
+original.plot
+replication.plot
+```
+
 ### Exploratory analyses
 
-Any follow-up analyses desired (not required).  
+Exploratory Analysis #1: Manipulation Check (controlling for personal mindset)
+```{r}
+# Descriptive Statistics (by cell)
+df.data %>% 
+  
+  # group by condition 
+  group_by(condition) %>% 
+  
+  # summarize mean and sd
+  summarise(mean = mean(faculty_mindset_m, na.rm = T),
+            sd = sd(faculty_mindset_m, na.rm = T))
+
+# Inferential statistics  (regress faculty perceived mindset on condition)
+facuty_model = lm(faculty_mindset_m ~ 1 + condition_c, 
+           data = df.data)
+
+# Print summary of model
+facuty_model %>% 
+  summary()
+
+# Calculate confidence intervals
+facuty_model  %>% 
+  
+  # Add confidence intervals
+  tidy(conf.int = T)
+
+# Calculate Cohen's D
+cohens_d(faculty_mindset_m ~ condition_c, data = df.data)
+
+```
+Consistent with the original study, the manipulation check was successful, as participants expected the professor
+to endorse more of a fixed mindset in the fixed mindset condition (M = 4.943, SD = 1.031) compared to the
+growth mindset condition (M = 1.981, SD = 0.921), b = -2.962, 95% CI [-3.257, -0.266], F(1, 169) = 391.644, p < .001, 
+Cohen's D = 3.03. This result is consistent with the original study (Cohen's D = 3.31)
+
+Exploratory Analysis #2: Perceived Stereotype Endorsement (controlling for personal mindset)
+```{r}
+# Descriptive Statistics (by cell)
+df.data %>% 
+  
+  # group by condition and gender
+  group_by(condition, gender_label) %>% 
+  
+  # summarize mean and sd
+  summarise(mean = mean(stereo_endorse_m, na.rm = T),
+            sd = sd(stereo_endorse_m, na.rm = T))
+
+# Inferential statistics  (regress sterotype endorsement on condition, gender, condition x gender interaction, controlling for personal mindset
+stereotype_model = lm(stereo_endorse_m ~ 1 + condition_c + gender_c + condition_c * gender_c + personal_mindset_m, 
+           data = df.data)
+
+# Print summary of model
+stereotype_model %>% 
+  summary()
+
+# Calculate confidence intervals
+stereotype_model  %>% 
+  
+  # Add confidence intervals
+  tidy(conf.int = T)
+
+# Calculate partial eta squared
+stereotype_model %>% 
+  eta_squared()
+```
+Consistent with the original study, participants expected the professor to be higher in
+gender stereotypes in the fixed mindset condition (M = 4.05, SD = 1.42) than the growth
+mindset condition (M = 2.04), b = -1.320, 95% CI [-1.908, -0.732], F(1, 166) = 19.634, 
+p < .001, partial eta squared = 0.40. Women (M = 3.25, SD = 1.73) were also more likely
+than men (M = 2.81, SD = 1.48) to believe that the professor endorsed gender stereotypes,
+b = 1.005, 95% CI [0.457, 1.553], F(1, 166) = 13.090, p < .001, partial eta squared = 0.03.
+Unlike the original study (p = .054) this relationship between condition and gender was 
+significantly moderated by gender, b = -1.182, 95% CI [-1.967, -0.397], F(1, 166) = 8.838, 
+p = .003, partial eta squared = .05. 
+
+Exploratory Analysis #3: Re-do anticipated belonging analysis with only current college students
+```{r}
+# Create dataframe with only current college students
+df.data.current = df.data %>% 
+  filter(current_student == 1)
+
+# Regress belonging on condition, gender, condition x gender interaction while contolling for personal mindset
+belonging_model_current = lm(belong_m ~ 1 + condition_c + gender_c + condition_c*gender_c + personal_mindset_m,
+   data = df.data.current) 
+
+# Print summary of model
+belonging_model_current %>% 
+  summary()
+
+# Calculate confidence intervals
+belonging_model_current  %>% 
+  
+  # Add confidence intervals
+  tidy(conf.int = T)
+
+# Calculate partial eta squared
+belonging_model_current %>% 
+  eta_squared()
+```
+When the anticipated belonging analysis is re-done with only the subset of participants that identified as current college students (N = 121),
+the Condition x Gender interaction is still not significant, b = 0.314, 95% CI [-0.648, 1.275], F(1, 166) = 0.417, p = .520, partial eta squared <.001. 
 
 ## Discussion
 
@@ -195,6 +564,52 @@ Any follow-up analyses desired (not required).
 
 Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
 
+This project aimed to replicate a key finding from Study 1 of Canning et al. (2022), that anticipated belonging would be overall lower in the fixed mindset than
+in the growth mindset professor condition, but that women, relative to men, would benefit more from being in the growth mindset professor condition. In other
+words, we sought to replicate the Condition x Gender interaction effect on anticipated belonging. The results from the confirmatory analysis did not 
+replicate the original study's finding. The relationship between condition (fixed vs. growth) and anticipated belonging was not moderated
+by gender. Instead, the results reveal that, both men (M = 3.78, SD = 1.41) and women (M = 3.85, SD = 1.41) had similar anticipated belonging in the growth mindset
+condition. Analysis of simple effects revealed that the marginally significant gap in anticipated belonging that existed between men (M = 2.74, SD = 1.18) and 
+women (M = 2.31, SD = 1.13) in the fixed mindset condition [b = -0.473, F(1, 166) = 2.976, p = .085] was no longer present in the growth mindset condition, 
+[b = 0.089, F(1, 166) = 0.105, p = .746]. It should also be noted that the effect size of the replication for the Condition x Gender interaction 
+(partial eta squared = .01) was much smaller than the effect size observed in the original study (partial eta squared = .049). To summarize, the key finding of interest did not replicate. 
+
+
 ### Commentary
 
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
+When considering the exploratory findings, the majority of the results from the original study did replicate, indicating that, overall, replicating the study was a useful endeavor.
+However, the key analysis of anticipated belonging did not replicate. Given the findings from the exploratory analyses, which are conceptually consistent
+with the theory and findings from Canning et al. (2022, Study 1), there is always the chance that another replication study would have found a 
+statistically significant effect, particularly if it employed a larger sample or used all college students from the same university. 
+
+There are several reasons why we may not have replicated the original finding. First, it is always possible that the original study team's effect was due
+to luck, and thus the original effect size was inflated. Second, due to budgetary constraints, my sample size (N = 171) was lower than the original sample size
+(N = 217). However, it should be noted that the power analysis from above suggests that only 158 participants are needed for an effect size of partial eta
+squared = .049 with 80% power. However, it is quite likely that the original study's effect size was inflated, which is further complicated by the
+difficulties in having adequate power to detect statistically significant interactions. 
+
+My study also utilized an online sample of Prolific workers, rather than actual college students. This change in sample characteristics could alter the
+results in several ways. For example, all participants from the original study were college students currently enrolled at Indiana University. It could
+be that specific cultural aspects of Indiana University could have affected the original results. For example, the STEM culture at Indiana may have norms 
+that are particularly negative or harmful for women. As such, it is possible that the growth mindset professor was particularly effective in that context. 
+Several recent studies show that numerous characteristics, such as peer norms (Yeager et al., 2019) or teacher's mindset (Yeager et al., 2022) can moderate 
+the effectiveness of growth mindset studies (see also Walton & Yeager, 2020 for a discussion of context heterogeneity). To the contrary, my study utilized 
+college students from all over the country, which would have added a source of heterogeneity that is difficult to account for. Given that it was an
+online sample, it is always possible that participants paid less attention to the study materials. However, several changes, such as bolding key aspects 
+of the stimuli, were used to account for this change. Furthermore, the manipulation check was significant with a rather large effect size (d = 3.03), which
+indicates the overall success of the manipulation. 
+
+## References
+Canning, E. A., Ozier, E., Williams, H. E., AlRasheed, R., & Murphy, M. C. (2022). Professors who signal a fixed mindset about ability undermine women’s performance in STEM. Social Psychological and Personality Science, 13(5), 927-937.
+
+Dweck, C. S. (1999). Self-theories: Their role in motivation, personality, and development. Psychology Press.
+
+Murphy, M. C., & Zirkel, S. (2015). Race and belonging in school: How anticipated and experienced belonging affect choice, persistence, and performance. Teachers College Record, 117(12), 1–40. 
+
+Schmader, T. (2002). Gender identification moderates stereotype threat effects on women's math performance. Journal of Experimental Social Psychology, 38(2), 194–201.
+
+Walton, G. M. & Yeager, D. S. (2020). Seed and soil: Psychological affordances in contexts help to explain where wise interventions succeed or fail. Current Directions in Psychological Science, 29, 219-226.
+
+Yeager, D. S., Hanselman, P., Walton, G. M., Murray, J., Crosnoe, R., Muller, C., Tipton, E., Schneider, B., Hulleman, C. S., Hinojosa, C. P., Paunesku, D., Romero, C., Flint, K., Roberts, A., Trott, J., Iachan, R., Buontempo, J., Hooper, S. Y., Carvalho, C., Hahn, R., Gopalan, M., Mhatre, P., Ferguson, R., Duckworth, A. L., & Dweck, C. S. (2019). A national experiment reveals where a growth mindset improves achievement. Nature, 573, 364-369.
+
+Yeager, D. S., Carroll, J. M., Buontempo, J., Cimpian, A., Woody, S., Crosnoe, R., Muller, C., Murray, J., Mhatre, P., Kersting, N., Hulleman, C., Kudym, M., Murphy, M., Duckworth, A., Walton, G. M., Dweck, C. S. (2022). Teacher mindsets help explain where a growth mindset intervention does and doesn't work. Psychological Science, 33(1), 18-32.
